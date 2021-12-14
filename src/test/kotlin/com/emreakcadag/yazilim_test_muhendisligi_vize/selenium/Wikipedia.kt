@@ -1,8 +1,11 @@
 package com.emreakcadag.yazilim_test_muhendisligi_vize.selenium
 
+import com.emreakcadag.yazilim_test_muhendisligi_vize.selenium.DriverType.CHROME
+import com.emreakcadag.yazilim_test_muhendisligi_vize.selenium.DriverType.OPERA
 import io.github.bonigarcia.wdm.WebDriverManager
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.opera.OperaDriver
 
 class Wikipedia {
     companion object {
@@ -19,11 +22,16 @@ class Wikipedia {
             private set(_) {}
     }
 
-    val driver = chrome()
     val config = WikipediaConfig()
 
-    private fun chrome(): WebDriver {
-        WebDriverManager.chromedriver().setup()
-        return ChromeDriver()
+    fun getDriver(driverType: DriverType): WebDriver = when (driverType) {
+        CHROME -> {
+            WebDriverManager.chromedriver().setup()
+            ChromeDriver()
+        }
+        OPERA -> {
+            WebDriverManager.operadriver().setup()
+            OperaDriver()
+        }
     }
 }
